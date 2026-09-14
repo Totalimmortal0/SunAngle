@@ -17,14 +17,12 @@ app.get("/api/test", async (req, res) => {
     if(data.length === 0) {
         res.status(404).json({
             error: 404,
-            message: "City not found (ERROR 404)"
         })
     } else {
         const latitude = data[0].lat
         const longitude = data[0].lon
 
         res.json({
-            message: "hello from the server.",
             city: `${city}`,
             longitude: `${longitude}`,
             latitude: `${latitude}`,
