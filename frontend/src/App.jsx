@@ -14,7 +14,6 @@ function App() {
   return (
     <>
       <h1>Vite React Front-End Test</h1><br/>
-
       <label htmlFor="city">Enter a City: </label>
       <input
         value={city}      
@@ -24,7 +23,7 @@ function App() {
       <button onClick={searchCity}>Search</button>
 
       {location && (
-        <><br/>
+        <>
           <h3>City: {location.city}</h3>
           <h4>Longitude: {location.longitude}</h4>
           <h4>Latitude: {location.latitude}</h4>

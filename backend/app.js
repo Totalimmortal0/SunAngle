@@ -4,8 +4,9 @@ const app = express();
 app.get("/", (req, res) => res.send("sunAngle backend test! server is up and running!"))
 
 app.get("/api/test", async (req, res) => {
-    const city = encodeURIComponent(req.query.city)
-    const APIURL = `https://nominatim.openstreetmap.org/search?q=${city}&format=jsonv2&limit=1`
+    const city = req.query.city
+    const encodedCity = encodeURIComponent(req.query.city)
+    const APIURL = `https://nominatim.openstreetmap.org/search?q=${encodedCity}&format=jsonv2&limit=1`
 
     const response = await fetch(APIURL, {
         headers: {
