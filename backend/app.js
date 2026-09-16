@@ -32,6 +32,14 @@ app.get("/api/location", async (req, res) => {
     }    
 })
 
+app.get("/api/angle", async (req, res) => {
+    const latitude = Number(req.query.lat)
+    const angle = Math.abs(latitude)
+    res.json({
+        angle: `${angle.toFixed(2)}`
+    })
+})
+
 const PORT = 3000
 
 app.listen(PORT, (error) => {

@@ -5,9 +5,10 @@ function App() {
   const [location, setLocation] = useState(null)
   const [err, setErr] = useState(null)
   const [city, setCity] = useState("")
+  const [solarAngle, setSolarAngle] = useState(null)
 
   async function searchCity() {
-    const response = await fetch(`/api/location?city=${city}`)
+    const response = await fetch(`/api/location?city=${city.trim()}`)
     const data = await response.json()
 
     if (!response.ok) {
@@ -15,8 +16,15 @@ function App() {
       setLocation(null)
     } else {
       setLocation(data)
+      getAngle(data.latitude)
       setErr(null)
     }
+  }
+
+  async function getAngle(latitude) {
+    const response = await fetch(`/api/angle?lat=${latitude}`)
+    const data = await response.json()
+    setSolarAngle(data)
   }
 
   return (
@@ -28,13 +36,18 @@ function App() {
         onChange={(event) => setCity(event.target.value)}
         id="city"
       />
-      <button onClick={searchCity} disabled={city === ""}>Search</button>
+      <button onClick={searchCity} disabled={city.trim() === ""}>Search</button>
 
       {location &&(
         <>
           <h3>City: {location.city}</h3>
-          <h4>Longitude: {location.longitude}</h4>
-          <h4>Latitude: {location.latitude}</h4>
+          {solarAngle && (
+            <>
+              <h4>Your Best Angle is: {solarAngle.angle}</h4>
+              <h4>Longitude: {location.longitude}</h4>
+              <h4>Latitude: {location.latitude}</h4>
+            </>
+          )}
         </>
       )}
 
