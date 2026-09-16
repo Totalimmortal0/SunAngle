@@ -28,7 +28,7 @@ function App() {
         onChange={(event) => setCity(event.target.value)}
         id="city"
       />
-      <button onClick={searchCity}>Search</button>
+      <button onClick={searchCity} disabled={city === ""}>Search</button>
 
       {location &&(
         <>
