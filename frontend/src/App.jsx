@@ -3,12 +3,20 @@ import './App.css'
 
 function App() {
   const [location, setLocation] = useState(null)
+  const [err, setErr] = useState(null)
   const [city, setCity] = useState("")
 
   async function searchCity() {
     const response = await fetch(`/api/location?city=${city}`)
     const data = await response.json()
-    setLocation(data)
+
+    if (!response.ok) {
+      setErr(data)
+      setLocation(null)
+    } else {
+      setLocation(data)
+      setErr(null)
+    }
   }
 
   return (
@@ -22,11 +30,17 @@ function App() {
       />
       <button onClick={searchCity}>Search</button>
 
-      {location && (
+      {location &&(
         <>
           <h3>City: {location.city}</h3>
           <h4>Longitude: {location.longitude}</h4>
           <h4>Latitude: {location.latitude}</h4>
+        </>
+      )}
+
+      {err &&(
+        <>
+          <h3>Error: {err.error}</h3>
         </>
       )}
     </>
