@@ -6,7 +6,7 @@ function App() {
   const [city, setCity] = useState("")
 
   async function searchCity() {
-    const response = await fetch(`/api/test?city=${city}`)
+    const response = await fetch(`/api/location?city=${city}`)
     const data = await response.json()
     setLocation(data)
   }
