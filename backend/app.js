@@ -33,6 +33,10 @@ app.get("/api/location", async (req, res) => {
 })
 
 app.get("/api/angle", async (req, res) => {
+    if (req.query.lat === undefined || req.query.lat === "") {
+        return res.status(400).json({error: 400})
+    }
+
     const latitude = Number(req.query.lat)
     const angle = Math.abs(latitude)
     res.json({
