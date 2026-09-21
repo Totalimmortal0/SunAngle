@@ -7,4 +7,4 @@ app.listen(PORT, (error) => {
         throw error;
     }
     console.log(`Server is up and running on port ${PORT}`)
-})
+})  
