@@ -29,7 +29,7 @@ function App() {
 
   return (
     <>
-      <h1>Vite React Front-End Test</h1><br/>
+      <h1>SunAngle</h1><br/>
       <label htmlFor="city">Enter a City: </label>
       <input
         value={city}      

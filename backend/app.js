@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-app.get("/", (req, res) => res.send("sunAngle backend test! server is up and running!"))
+app.get("/", (req, res) => res.send("sunAngle backend! server is up and running!"))
 
 app.get("/api/location", async (req, res) => {
     const city = req.query.city
@@ -40,11 +40,4 @@ app.get("/api/angle", async (req, res) => {
     })
 })
 
-const PORT = 3000
-
-app.listen(PORT, (error) => {
-    if (error) {
-        throw error;
-    }
-    console.log(`Server is up and running on port ${PORT}`)
-})
+module.exports = app
