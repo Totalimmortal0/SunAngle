@@ -6,19 +6,23 @@ function App() {
   const [err, setErr] = useState(null)
   const [city, setCity] = useState("")
   const [solarAngle, setSolarAngle] = useState(null)
+  const [isLoading, setisLoading] = useState(false)
 
   async function searchCity() {
+    setisLoading(true)
+    setLocation(null)
+
     const response = await fetch(`/api/location?city=${city.trim()}`)
     const data = await response.json()
 
     if (!response.ok) {
       setErr(data)
-      setLocation(null)
     } else {
       setLocation(data)
       getAngle(data.latitude)
       setErr(null)
     }
+    setisLoading(false)
   }
 
   async function getAngle(latitude) {
@@ -38,12 +42,16 @@ function App() {
       />
       <button onClick={searchCity} disabled={city.trim() === ""}>Search</button>
 
+      {isLoading &&(
+        <h3>Loading...</h3>
+      )}
+      
       {location &&(
         <>
           <h3>City: {location.city}</h3>
           {solarAngle && (
             <>
-              <h4>Your Best Angle is: {solarAngle.angle}</h4>
+              <h4>Your Best Angle is: {solarAngle.angle}°</h4>
               <h4>Longitude: {location.longitude}</h4>
               <h4>Latitude: {location.latitude}</h4>
             </>
