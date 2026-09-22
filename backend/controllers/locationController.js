@@ -16,11 +16,12 @@ async function getLocation(req, res) {
             error: 404,
         })
     } else {
+        const cityName = data[0].name
         const latitude = data[0].lat
         const longitude = data[0].lon
 
         res.json({
-            city: `${city}`,
+            city: `${cityName}`,
             longitude: `${longitude}`,
             latitude: `${latitude}`,
         })
