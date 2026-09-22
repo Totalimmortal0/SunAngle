@@ -8,7 +8,9 @@ function App() {
   const [solarAngle, setSolarAngle] = useState(null)
   const [isLoading, setisLoading] = useState(false)
 
-  async function searchCity() {
+  async function searchCity(event) {
+    event.preventDefault()
+    
     setisLoading(true)
     setLocation(null)
 
@@ -34,14 +36,16 @@ function App() {
   return (
     <>
       <h1>SunAngle</h1><br/>
-      <label htmlFor="city">Enter a City: </label>
-      <input
-        value={city}      
-        onChange={(event) => setCity(event.target.value)}
-        id="city"
-      />
-      <button onClick={searchCity} disabled={city.trim() === ""}>Search</button>
-
+      <form onSubmit={searchCity}>
+        <label htmlFor="city">Enter a City: </label>
+        <input
+          value={city}      
+          onChange={(event) => setCity(event.target.value)}
+          id="city"
+        />
+        <button type="submit" disabled={city.trim() === ""}>Search</button>
+      </form>
+      
       {isLoading &&(
         <h3>Loading...</h3>
       )}
