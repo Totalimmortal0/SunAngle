@@ -24,6 +24,7 @@ function App() {
       getAngle(data.latitude)
       setErr(null)
     }
+
     setisLoading(false)
   }
 
@@ -34,41 +35,65 @@ function App() {
   }
 
   return (
-    <>
-      <h1>SunAngle</h1><br/>
-      <form onSubmit={searchCity}>
-        <label htmlFor="city">Enter a City: </label>
-        <input
-          value={city}      
-          onChange={(event) => setCity(event.target.value)}
-          id="city"
-        />
-        <button type="submit" disabled={city.trim() === ""}>Search</button>
-      </form>
+    <main className="app">
+      <section className="hero">
+        <h1>SunAngle</h1>
+        <p>
+          Calculate the recommended solar panel angle for your location.
+        </p>
+
+        <form className="searchForm" onSubmit={searchCity}>
+          <input
+            value={city}
+            onChange={(event) => setCity(event.target.value)}
+            placeholder="Enter a city..."
+            id="city"
+          />
+          <button
+            type="submit"
+            disabled={city.trim() === ""}
+          >
+            Calculate
+          </button>
+        </form>
+      </section>
       
-      {isLoading &&(
-        <h3>Loading...</h3>
-      )}
-      
-      {location &&(
-        <>
-          <h3>City: {location.city}</h3>
-          {solarAngle && (
-            <>
-              <h4>Your Best Angle is: {solarAngle.angle}°</h4>
-              <h4>Longitude: {location.longitude}</h4>
-              <h4>Latitude: {location.latitude}</h4>
-            </>
-          )}
-        </>
+      {isLoading && (
+        <section className="statusCard">
+          <h3>Calculating...</h3>
+        </section>
       )}
 
-      {err &&(
-        <>
+      {err && !isLoading && (
+        <section className="errorCard">
           <h3>Error: {err.error}</h3>
-        </>
+        </section>
       )}
-    </>
+      
+      {location && solarAngle && (
+        <section className="resultCard">
+          <p className="cityName">{location.city}</p>
+
+          <div className="angleDisplay">
+            <span>{solarAngle.angle}°</span>
+          </div>
+          <p className="angleLabel">
+            Recommended panel angle
+          </p>
+
+          <div className="coordinates">
+            <div>
+              <span>Latitude</span>
+              <p>{location.latitude}</p>
+            </div>
+            <div>
+              <span>Longitude</span>
+              <p>{location.longitude}</p>
+            </div>
+          </div>
+        </section>
+      )}
+    </main>
   )
 }
 
